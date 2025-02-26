@@ -26,4 +26,4 @@ def convert_to_datetime(df, column_name):
                 f"Some values in '{column_name}' could not be converted to datetime."
             )
     except Exception as e:
-        st.error(f"Error in converting '{column_name}': {e}0")
+        st.error(f"Error in converting '{column_name}': {e}")

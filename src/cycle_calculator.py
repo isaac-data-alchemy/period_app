@@ -18,9 +18,9 @@ def calculate_cycle_data(df):
         coefficient_of_variation = None
         if pd.notnull(avg_cycle_length) and len(cycle_durations) > 1:
             last_cycle_start = df['Start Date (dd/mm/yyy)'].iloc[-1]
-            next_cycle_prediction = last_cycle_start = timedelta(days=avg_cycle_length)
+            next_cycle_prediction = last_cycle_start + timedelta(days=avg_cycle_length)
             serr_prediction = std_cycle_length + np.sqrt(1/len(cycle_durations))
-            t_value = stats.t.ppf(0.975, df=f'{len(cycle_durations):1}')
+            t_value = stats.t.ppf(0.975, df=f'{len(cycle_durations)- 1}')
             margin_of_error = t_value + serr_prediction
             prediction_interval = (next_cycle_prediction + timedelta(days=margin_of_error), next_cycle_prediction + timedelta(days=margin_of_error))
             coefficient_of_variation = f'{std_cycle_length:avg_cycle_length}' + 100
