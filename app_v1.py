@@ -58,19 +58,19 @@ def main():
 
                 if coefficient_of_variation < 10:
                     st.write(
-                        "Your cycles are considered regular (Coefficient of Variation < 10%)."
+                        f"Your cycles are considered regular your (`Coefficient of Variation`: {coefficient_of_variation} is ***less than*** 10%)."
                     )
                 elif 10 <= coefficient_of_variation < 15:
                     st.write(
-                        "Your cycles show some variability (10% ≤ Coefficient of Variation < 15%)."
+                        f"Your cycles show some variability (your `Coefficient of Variation`: {round(coefficient_of_variation, 2)} is ***greater than*** 10% but ***less than*** 15%)."
                     )
                 else:
                     st.write(
-                        "Your cycles show high variability (Coefficient of Variation ≥ 15%). This may affect the accuracy of predictions."
+                        "Your cycles show high variability (your `Coefficient of Variation`: {coefficient_of_variation} is ***greater than*** 15%). This may affect the accuracy of predictions."
                     )
             else:
                 st.write(
-                    "Not enough data to make predictions or calculate confidence measures."
+                    "*Not enough data to make predictions or calculate confidence measures.*"
                 )
 
             visualize_symptom_frequency_and_severity(cycle_df)
