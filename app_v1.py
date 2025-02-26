@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from src.date_parser import convert_to_datetime
-from src.cycle_calculator import calculate_cycle_data
+from src.cycle_calculator import calculate_cycle_data, calculate_cycle_data_v2
 from src.symptom_manager import add_symptoms
 from src.cycle_visualizer import visualize_symptom_frequency_and_severity
 from src.cycle_visualizer import visualize_cycle_length
@@ -30,7 +30,7 @@ def main():
                 next_cycle_prediction,
                 prediction_interval,
                 coefficient_of_variation,
-            ) = calculate_cycle_data(df)
+            ) = calculate_cycle_data_v2(df)
             cycle_df = add_symptoms(cycle_df)
 
             st.subheader("Processed Data")
