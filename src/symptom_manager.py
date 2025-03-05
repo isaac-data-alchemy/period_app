@@ -35,7 +35,7 @@ def add_symptoms(df):
             col1, col2 = st.columns(2)
             with col1:
                 symptom_date = st.date_input(
-                    f"Date for symptom entry (Cycle {idx :1}0)",
+                        f"Date for symptom entry (Cycle {idx}:)",
                     min_value=row["Start Date (dd/mm/yyy)"],
                     max_value=row["End Date (dd/mm/yyy)"],
                     key=f"date input{idx} {len(symptom_entries)}",
