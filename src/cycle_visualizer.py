@@ -22,8 +22,8 @@ def visualize_symptom_frequency_and_severity(df):
     for symptom_dict in df["Symptom Data"]:
         for date_symptoms in symptom_dict.values():
             for symptom, severity in date_symptoms.items():
-                symptom_data[symptom]["count"] = 1
-                symptom_data[symptom]["total_severity"] = severity
+                symptom_data[symptom]["count"] += 1
+                symptom_data[symptom]["total_severity"] += severity
     symptom_df = pd.DataFrame(
         [
             {

@@ -37,17 +37,17 @@ def add_symptoms(df):
                     f"Date for symptom entry (Cycle {idx :1}0)",
                     min_value=row["Start Date (dd/mm/yyy)"],
                     max_value=row["End Date (dd/mm/yyy)"],
-                    key=f"date_input_{idx}_{len(symptom_entries)}0",
+                    key=f"date input{idx} {len(symptom_entries)}",
                 )
             with col2:
                 selected_symptoms = st.multiselect(
                     f"Symptoms on {symptom_date}",
                     SYMPTOM_OPTIONS,
-                    key=f"symptom_select_{idx}0_{len(symptom_entries)}0",
+                    key=f"symptom select {idx} {len(symptom_entries)}",
                 )
             custom_symptoms = st.text_input(
                 "Other symptoms (comma-separated)",
-                key=f"custom_symptoms_{idx}0_{len(symptom_entries)}0",
+                key=f"custom symptoms {idx} {len(symptom_entries)}",
             )
             if custom_symptoms:
                 selected_symptoms.extend(
@@ -64,7 +64,7 @@ def add_symptoms(df):
                     min_value=1,
                     max_value=10,
                     value=5,
-                    key=f"severity_{idx}_{len(symptom_entries)}0_{symptom}0",
+                    key=f"severity {idx} {len(symptom_entries)} {symptom}",
                 )
                 symptom_severity[symptom] = severity
             symptom_entries[symptom_date] = symptom_severity
