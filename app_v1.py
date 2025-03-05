@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 from src.date_parser import convert_to_datetime
 from src.cycle_calculator import calculate_cycle_data_v2
-from src.symptom_manager import add_symptoms
-from src.cycle_visualizer import visualize_symptom_frequency_and_severity
+from src.symptom_manager import add_symptoms, process_symptom_data
+from src.cycle_visualizer import visualize_symptom_frequency_and_severity, visualize_symptom_frequency_and_severity_v2
 from src.cycle_visualizer import visualize_cycle_length
 from src.cycle_visualizer import visualize_symptom_heatmap
 
@@ -37,43 +37,44 @@ def main():
             st.dataframe(cycle_df)
 
             st.subheader("Cycle Insights")
-            st.write(f"`Average Cycle Length:` **{avg_cycle_length:.2f}** days")
+            st.write(f"* `Average Cycle Length:` **{avg_cycle_length:.2f}** days")
             st.write(
-                f"`Standard Deviation of Cycle Length:` **{std_cycle_length:.2f}** days"
+                f"* `Standard Deviation of Cycle Length:` **{std_cycle_length:.2f}** days"
             )
 
             if next_cycle_prediction:
-                st.write(f"`Next Cycle Prediction:` **{next_cycle_prediction.date()}**")
+                st.write(f"* `Next Cycle Prediction:` **{next_cycle_prediction.date()}**")
                 st.write(
-                    f"`95% Prediction Interval:` **{prediction_interval[0].date()}** to **{prediction_interval[1].date()}**"
+                    f"* `95% Prediction Interval:` **{prediction_interval[0].date()}** to **{prediction_interval[1].date()}**"
                 )
                 st.write(
-                    f"`Coefficient of Variation:` **{coefficient_of_variation:.2f}**%"
+                    f"* `Coefficient of Variation:` **{coefficient_of_variation:.2f}**%"
                 )
 
                 st.write("### Interpretation of Results:")
                 st.write(
-                    f"We are 95% confident that the next cycle will start between **{prediction_interval[0].date()} and {prediction_interval[1].date()}**."
+                    f"* **Your next cycle is predicted to arrive on the** ***{next_cycle_prediction.date().strftime('%dth-%m-%Y')}***\n",
+                    f"\n* We are 95% confident that the next cycle will start between **{prediction_interval[0].date().strftime('%d-%m-%Y')} and {prediction_interval[1].date().strftime('%d-%m-%Y')}**."
                 )
 
                 if coefficient_of_variation < 10:
                     st.write(
-                        f"Your cycles are considered regular your (`Coefficient of Variation`: {coefficient_of_variation} is ***less than*** 10%)."
+                        f"* Your cycles are considered regular your (`Coefficient of Variation`: {coefficient_of_variation} is ***less than*** 10%)."
                     )
                 elif 10 <= coefficient_of_variation < 15:
                     st.write(
-                        f"Your cycles show some variability (your `Coefficient of Variation`: {round(coefficient_of_variation, 2)} is ***greater than*** 10% but ***less than*** 15%)."
+                        f"* Your cycles show some variability (your `Coefficient of Variation`: {round(coefficient_of_variation, 2)} is ***greater than*** 10% but ***less than*** 15%)."
                     )
                 else:
                     st.write(
-                        "Your cycles show high variability (your `Coefficient of Variation`: {coefficient_of_variation} is ***greater than*** 15%). This may affect the accuracy of predictions."
+                        "* Your cycles show high variability (your `Coefficient of Variation`: {coefficient_of_variation} is ***greater than*** 15%). This may affect the accuracy of predictions."
                     )
             else:
                 st.write(
-                    "*Not enough data to make predictions or calculate confidence measures.*"
+                    "* *Not enough data to make predictions or calculate confidence measures.*"
                 )
 
-            visualize_symptom_frequency_and_severity(cycle_df)
+            visualize_symptom_frequency_and_severity_v2(cycle_df)
             visualize_symptom_heatmap(cycle_df)
             visualize_cycle_length(cycle_df)
 
