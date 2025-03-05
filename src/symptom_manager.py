@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from collections import defaultdict
 
 SYMPTOM_OPTIONS = [
     "Body Pain",
@@ -83,3 +84,23 @@ def add_symptoms(df):
             for symptom, severity in symptoms.items():
                 st.write(f"-{symptom}: Severity {severity}")
     return df
+
+def process_symptom_data(df):
+    symptom_data = defaultdict(lambda: {"count":0, "total_severity":0})
+
+    for symptom_dict in df["Symptom Data"]:
+        for date_symptoms in symptom_dict.values():
+            for symptom, severity in date_symptoms.items():
+                symptom_data[symptom]["count"] +=1
+                symptom_data[symptom]["total_severity"] +=severity
+    
+    symptom_df = pd.DataFrame([
+        {
+            "Symptom": symptom,
+            "Count": data["count"],
+            "Avg Severity": round(data["total_severity"] / data["count"], 2) if data["count"] > 0 else 0,
+        }
+        for symptom, data in symptom_data.items()
+    ])
+
+    return symptom_df

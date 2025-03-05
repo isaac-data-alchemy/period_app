@@ -4,6 +4,7 @@ from collections import defaultdict
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
+from src.symptom_manager import process_symptom_data as process_data
 
 
 def visualize_symptom_frequency_and_severity(df):
@@ -49,7 +50,26 @@ def visualize_symptom_frequency_and_severity(df):
     )
     st.plotly_chart(fig, use_container_width=True)
 
+def visualize_symptom_frequency_and_severity_v2(df):
+    symptom_df = process_data(df)
+    fig = px.bar(
+        symptom_df,
+        x="Symptom",
+        y="Count",
+        title="Symptom Frequency and Average Severity Across Cycles",
+        labels={"Count": "Frequency", "Symptom": "Symptom Type"},
+        color="Avg Severity",
+        color_continuous_scale="RdYlBu_r",
+        hover_data=["Avg Severity"],
+    )
 
+    fig.update_layout(
+        xaxis_tickangle=-45,
+        xaxis_title="Symptom",
+        yaxis_title="Frequency"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 def visualize_cycle_length(df):
     """
     Visualizes the cycle length over time using Plotly.
@@ -75,6 +95,7 @@ def visualize_cycle_length(df):
     )
     fig.update_layout(xaxis_tickangle=-45)
     st.plotly_chart(fig, use_container_width=True)
+
 
 
 def visualize_symptom_heatmap(df):
