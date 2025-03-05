@@ -21,7 +21,7 @@ SYMPTOM_OPTIONS = [
     "Back Pain",
 ]
 
-
+@st.cache_data
 def add_symptoms(df):
     """\n    Add symptoms to a DataFrame for specific dates within each cycle. \n    Allows users to input symptoms, including selecting from predefined options \n    or entering custom symptoms, and rate their severity.\n    \n    Args:\n    df (pd.DataFrame): The DataFrame containing cycle data.\n    \n    Returns:\n    pd.DataFrame: The updated DataFrame with the added symptom data.\n"""  # inserted
     st.subheader("Track Symptoms for Specific Dates")

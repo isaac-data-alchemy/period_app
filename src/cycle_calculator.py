@@ -18,6 +18,7 @@ def avg_cycle_length(cycle_durations: pd.Series):
 def std_cycle_length(cycle_durations: pd.Series):
     return cycle_durations.std()
 
+@st.cache_data
 def calculate_cycle_data_v2(df):
     """\n    Calculate various menstrual cycle data based on the provided DataFrame.\n\n    Parameters:\n    - df: DataFrame containing \'Start Date (dd/mm/yyy)\' and \'End Date (dd/mm/yyy)\' columns.\n\n    Returns:\n    - df: Updated DataFrame with additional columns for cycle data.\n    - avg_cycle_length: Average length of menstrual cycles.\n    - std_cycle_length: Standard deviation of menstrual cycle lengths.\n    - next_cycle_prediction: Predicted start date of the next cycle.\n    - prediction_interval: 95% prediction interval for the next cycle start date.\n    - coefficient_of_variation: Coefficient of variation for menstrual cycle lengths.\n\n    Raises:\n    - st.error: If an error occurs during the calculation process.\n    """  # inserted
     try:
