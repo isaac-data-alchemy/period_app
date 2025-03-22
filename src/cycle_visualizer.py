@@ -17,8 +17,6 @@ def visualize_symptom_frequency_and_severity(df):
     Returns:
     - None
     """
-    if df.empty:
-        return "No symptoms have been selected"
     symptom_data = defaultdict(lambda: {"count": 0, "total_severity": 0})
     for symptom_dict in df["Symptom Data"]:
         for date_symptoms in symptom_dict.values():
@@ -80,8 +78,6 @@ def visualize_cycle_length(df):
     Returns:
     - None
     """
-    if df.empty:
-        return "No symptom has been entered"
     fig = px.line(
         df,
         x="Start Date (dd/mm/yyy)",

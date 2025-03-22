@@ -32,9 +32,11 @@ def main():
                 coefficient_of_variation,
             ) = calculate_cycle_data_v2(df)
             cycle_df = add_symptoms(cycle_df)
+            processed = cycle_df
+            processed.drop(['Cycle Length', 'Period Length', 'Average length (2024)', 'Average length (2025)', 'Symptom Data'], axis='columns', inplace=True)
 
             st.subheader("Processed Data")
-            st.dataframe(cycle_df)
+            st.dataframe(processed)
 
             st.subheader("Cycle Insights")
             st.write(f"* `Average Cycle Length:` **{avg_cycle_length:.2f}** days")
@@ -54,7 +56,7 @@ def main():
                 st.write("### Interpretation of Results:")
                 st.write(
                     f"* **Your next cycle is predicted to arrive on the** ***{next_cycle_prediction.date().strftime('%dth-%m-%Y')}***\n",
-                    f"\n* We are 95% confident that the next cycle will start between **{prediction_interval[0].date().strftime('%d-%m-%Y')} and {prediction_interval[1].date().strftime('%d-%m-%Y')}**."
+                    f"\n* We are **95%** confident that the next cycle will start between **{prediction_interval[0].date().strftime('%d-%m-%Y')} and {prediction_interval[1].date().strftime('%d-%m-%Y')}**."
                 )
 
                 if coefficient_of_variation < 10:
@@ -63,7 +65,7 @@ def main():
                     )
                 elif 10 <= coefficient_of_variation < 15:
                     st.write(
-                        f"* Your cycles show some variability your `Coefficient of Variation` is {round(coefficient_of_variation, 2)} which is ***greater than*** 10% but ***less than*** 15%."
+                        f"* Your cycles show some variability your `Coefficient of Variation` is **{round(coefficient_of_variation, 2)}** which is ***greater than*** 10% but ***less than*** 15%."
                     )
                 else:
                     st.write(
@@ -74,12 +76,12 @@ def main():
                     "* *Not enough data to make predictions or calculate confidence measures.*"
                 )
 
+            visualize_cycle_length(cycle_df)
             visualize_symptom_frequency_and_severity_v2(cycle_df)
             visualize_symptom_heatmap(cycle_df)
-            visualize_cycle_length(cycle_df)
 
         except Exception as e:
-            st.error(f"Error processing the file: {e}")
+            st.error("Error processing the file: No Symptoms added yet")
 
 
 if __name__ == "__main__":
