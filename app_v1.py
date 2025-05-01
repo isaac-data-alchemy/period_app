@@ -65,7 +65,7 @@ def main():
                     )
                 elif 10 <= coefficient_of_variation < 15:
                     st.write(
-                        f"* Your cycles show some variability your `Coefficient of Variation` is **{round(coefficient_of_variation, 2)}** which is ***greater than*** 10% but ***less than*** 15%."
+                        f"* Your cycles show some variability your `Coefficient of Variation` is **{round(coefficient_of_variation, 2)}**% which is ***greater than*** 10% but ***less than*** 15%."
                     )
                 else:
                     st.write(
