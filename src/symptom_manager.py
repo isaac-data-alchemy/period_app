@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 from collections import defaultdict
-
+#TODO do something with this.
 SYMPTOM_OPTIONS = [
     "Body Pain",
     "Head Hurting",
